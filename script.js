@@ -97,9 +97,10 @@ function Start() {
         } catch (e) {
             localStorage.removeItem("json");
             ErrorPro(e);
+            return;
         }
 
-        AddTable();
+        AddTable(j);
 
         return;
     } else if (localStorage.code != "") { // Убрать
@@ -135,8 +136,8 @@ function ErrorPro(e) {
 
 }
 
-function AddTable() {
-    var table = createTable(j, true); // Определить четность
+function AddTable(json) {
+    var table = createTable(json, true); // Определить четность
     var mainTable = document.getElementsByClassName("main_table")[0];
     mainTable.innerHTML += table;
 }
