@@ -95,7 +95,7 @@ function Start() {
         try {
             j = JSON.parse(localStorage.json);
         } catch (e) {
-            localStorage.removeItem(json);
+            localStorage.removeItem("json");
             ErrorPro(e);
         }
 
