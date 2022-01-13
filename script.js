@@ -90,19 +90,6 @@ function Start() {
             GetData(search.code);
         else
             ErrorPro();
-    } else if (localStorage.json != null && localStorage.json != "") {
-        var j;
-        try {
-            j = JSON.parse(localStorage.json);
-        } catch (e) {
-            localStorage.removeItem("json");
-            ErrorPro(e);
-            return;
-        }
-
-        AddTable(j);
-
-        return;
     } else if (localStorage.code != "") { // Убрать
         GetData(localStorage.code);
     }
