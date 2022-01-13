@@ -134,6 +134,7 @@ function ErrorPro(e) {
     mainTable.style["display"] = "none"
     isEval.style["display"] = "none"
 
+    console.log(e);
 }
 
 function AddTable(json) {
