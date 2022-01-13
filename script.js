@@ -116,8 +116,9 @@ function GetData(code) {
     xml.send();
 
     xml.onload = function() {
-        localStorage.json = Coder(xml.response, code);
-        AddTable(JSON.parse(localStorage.json), true);
+        var json = Coder(xml.response, code);
+        var jsonParse = JSON.parse(json);
+        AddTable(jsonParse, true);
     }
     xml.onerror = function(e) {
         ErrorPro(e);
