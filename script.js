@@ -162,7 +162,6 @@ function EvalLocate(json) {
             endDay = parseInt(end.split(".")[0]),
             endMonth = parseInt(end.split(".")[1]);
 
-        console.log(`${startDay}.${startMonth}    ${endDay}.${endMonth}            ${day} ${month}`)
         if (startDay <= day && endDay >= day && startMonth <= month && endMonth >= month) {
             isEval = json.week[i].isEven;
             break;
