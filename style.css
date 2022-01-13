@@ -1,0 +1,43 @@
+body {
+    font-family: 'HackRegular';
+    font-weight: normal;
+    font-style: normal;
+    background-color: black;
+    color: white;
+}
+
+.error div {
+    margin: auto auto;
+    width: 250px;
+    text-align: center;
+    display: none;
+}
+
+.main_table {
+    margin: auto 20px;
+}
+
+.main_table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.main_table * {
+    border: 1px solid white;
+    word-wrap: break-word;
+}
+
+.main_table center {
+    border: none;
+}
+
+.is_eval {
+    position: fixed;
+    right: 10px;
+    width: 20px;
+    bottom: 90px;
+}
+
+.lessionName {
+    font-size: 15px;
+}
