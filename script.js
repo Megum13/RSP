@@ -143,7 +143,7 @@ function AddTable(json) {
     var mainTable = document.getElementsByClassName("main_table")[0];
     mainTable.innerHTML += table;
 
-    document.getElementsByClassName(getWeekDay())[0].ScrollIntoView();
+   // document.getElementsByClassName(getWeekDay())[0].ScrollIntoView();
 }
 
 function EvalLocate(json) {
