@@ -47,11 +47,6 @@ function createTable(json, isEven) {
 
 }
 
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
-
-
 function AddQR() {
 
     let qrCodeOutput = document.getElementsByClassName("qrCodeOutput")[0];
