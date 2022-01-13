@@ -50,7 +50,7 @@ function createTable(json, isEven) {
 function AddQR() {
 
     let qrCodeOutput = document.getElementsByClassName("qrCodeOutput")[0];
-    let text = window.location.origin + "?code=" + window.localStorage.code;
+    let text = location.href + "?code=" + window.localStorage.code;
     qrCodeOutput.innerHTML = "";
     qrCodeOutput.append(QRCode.generateHTML(text, {}))
 }
