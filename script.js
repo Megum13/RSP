@@ -71,7 +71,6 @@ function Coder(input, key) {
 }
 
 function Start() {
-
     if (location.search != "") {
         var search = location.search.substr(1)
             .split('&')
@@ -85,23 +84,23 @@ function Start() {
             GetData(search.code);
         else
             ErrorPro();
-    } else if (localStorage.code != "") { // Убрать
-        GetData(localStorage.code);
     }
-
 }
 
 function GetData(code) {
-
     var xml = new XMLHttpRequest();
     xml.open("GET", "https://megum13.github.io/d4rrR7p-280/data.txt")
     xml.send();
 
     xml.onload = function() {
-        var text = BinaryToText(xml.response)
-        var json = Coder(text, code);
-        var jsonParse = JSON.parse(json);
-        AddTable(jsonParse, true);
+        try {
+            var text = BinaryToText(xml.response)
+            var json = Coder(text, code);
+            var jsonParse = JSON.parse(json);
+            AddTable(jsonParse);
+        } catch (e) {
+            ErrorPro(e);
+        }
     }
     xml.onerror = function(e) {
         ErrorPro(e);
@@ -110,14 +109,13 @@ function GetData(code) {
 }
 
 function BinaryToText(str) {
+    var newBin = str.split(" ");
+    var binCode = [];
 
-var newBin = str.split(" ");
-var binCode = [];
-
-for (i = 0; i < newBin.length; i++) {
-    binCode.push(String.fromCharCode(parseInt(newBin[i], 2)));
-  }
-return binCode.join("");
+    for (i = 0; i < newBin.length; i++) {
+        binCode.push(String.fromCharCode(parseInt(newBin[i], 2)));
+    }
+    return binCode.join("");
 }
 
 function ErrorPro(e) {
@@ -132,9 +130,49 @@ function ErrorPro(e) {
 }
 
 function AddTable(json) {
-    var table = createTable(json, true); // Определить четность
+    var eval = EvalLocate(json);
+    var table = createTable(json, eval); // Определить четность
     var mainTable = document.getElementsByClassName("main_table")[0];
     mainTable.innerHTML += table;
+
+}
+
+function EvalLocate(json) {
+
+    let now = new Date();
+    var day = now.getDate()
+    var month = now.getMonth() + 1;
+    var isEval;
+
+    for (var i = 0; i < json.week.length; i++) {
+
+        var start = json.week[i].start;
+        var end = json.week[i].end;
+
+        var startDay = parseInt(start.split(".")[0]),
+            startMonth = parseInt(start.split(".")[1]),
+            endDay = parseInt(end.split(".")[0]),
+            endMonth = parseInt(end.split(".")[1]);
+
+        console.log(`${startDay}.${startMonth}    ${endDay}.${endMonth}            ${day} ${month}`)
+        if (startDay <= day && endDay >= day && startMonth <= month && endMonth >= month) {
+            isEval = json.week[i].isEven;
+            break;
+        }
+    }
+
+    if (isEval) {
+        document.body.innerHTML += `   
+        <div class="is_eval">
+        <div class="eval" style="margin-left: 8px; color: green">Ч</div>
+        </div>`
+    } else {
+        document.body.innerHTML += `   
+        <div class="is_eval">
+        <div class="" style="margin-left: 5px; color: red">НЧ</div>
+        </div>`
+    }
+    return isEval;
 }
 
 Start();
