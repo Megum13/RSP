@@ -27,7 +27,7 @@ function createTable(json, isEven) {
 
         table += ` 
         <table cellpadding="5" cellspacing="0px">
-        <center>${weeks[i]}</center>
+        <center class="${weeks[i]}">${weeks[i]}</center>
         <tr>
         <th>
             Предмет
@@ -45,6 +45,13 @@ function createTable(json, isEven) {
 
     return table;
 
+}
+
+function getWeekDay() {
+  var date = new Date();  
+  let days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+
+  return days[date.getDay()];
 }
 
 function AddQR() {
@@ -135,6 +142,7 @@ function AddTable(json) {
     var mainTable = document.getElementsByClassName("main_table")[0];
     mainTable.innerHTML += table;
 
+    document.getElementsByClassName(getWeekDay())[0].ScrollIntoView();
 }
 
 function EvalLocate(json) {
