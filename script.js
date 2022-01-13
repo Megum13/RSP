@@ -99,7 +99,7 @@ function GetData(code) {
 
     xml.onload = function() {
         var text = BinaryToText(xml.response)
-        var json = Coder(string, code);
+        var json = Coder(text, code);
         var jsonParse = JSON.parse(json);
         AddTable(jsonParse, true);
     }
