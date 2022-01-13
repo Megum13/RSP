@@ -91,6 +91,8 @@ function Start() {
             GetData(search.code);
         else
             ErrorPro();
+    }else{
+        ErrorPro();    
     }
 }
 
