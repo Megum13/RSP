@@ -98,7 +98,7 @@ function GetData(code) {
     xml.send();
 
     xml.onload = function() {
-        var string = atob(xml.response)
+        var text = BinaryToText(xml.response)
         var json = Coder(string, code);
         var jsonParse = JSON.parse(json);
         AddTable(jsonParse, true);
@@ -107,6 +107,17 @@ function GetData(code) {
         ErrorPro(e);
     }
 
+}
+
+function BinaryToText(str) {
+
+var newBin = str.split(" ");
+var binCode = [];
+
+for (i = 0; i < newBin.length; i++) {
+    binCode.push(String.fromCharCode(parseInt(newBin[i], 2)));
+  }
+return binCode.join("");
 }
 
 function ErrorPro(e) {
