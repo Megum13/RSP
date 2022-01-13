@@ -98,7 +98,8 @@ function GetData(code) {
     xml.send();
 
     xml.onload = function() {
-        var json = Coder(xml.response, code);
+        var string = atob(xml.response)
+        var json = Coder(string, code);
         var jsonParse = JSON.parse(json);
         AddTable(jsonParse, true);
     }
