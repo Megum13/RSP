@@ -19,7 +19,7 @@ function createTable(json, isEven) {
 
             tr += `
                 <tr name="${name}" id="${id}" teacher="${teacher}" number="${number}">
-                <td class="lessionName">${name} <br><b>${teacher}</b></td>
+                <td class="lessionName">${name} <br><br><b style="border:0">${teacher}</b></td>
                 <td width="29px">${number == "Nil" ? "" : number}</td>
                 </tr>
                 `;
