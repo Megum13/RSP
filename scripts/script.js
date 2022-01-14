@@ -84,6 +84,21 @@ function Start() {
 }
 
 function GetData(code) {
+    
+    let reader = new FileReader();
+    reader.readAsText(file);
+    
+     reader.onload = function() {
+        try {
+            let text = BinaryToText(reader.result)
+            let json = Coder(text, code);
+            let jsonParse = JSON.parse(json);
+            AddTable(jsonParse);
+        } catch (e) {
+            ErrorPro(e);
+        }
+    };
+    /*
     var xml = new XMLHttpRequest();
     xml.open("GET", "https://megum13.github.io/d4rrR7p-280/data.txt")
     xml.send();
@@ -101,7 +116,7 @@ function GetData(code) {
     xml.onerror = function(e) {
         ErrorPro(e);
     }
-
+*/
 }
 
 function ErrorPro(e) {
