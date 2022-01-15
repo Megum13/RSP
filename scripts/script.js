@@ -1,15 +1,13 @@
-function createTable(json, isEven) {
-
+function CreateTable(json, isEven) {
 
     let table = "";
     let spanEven = "";
     let weeks = ["Пн", "Вт", "Ср", "Чт", "Пт", ]
 
     let nowWeek = getWeekDay();
-    if (nowWeek == "Сб" || nowWeek == "Вс") {
-        isEven = isEven ? isEven = false : isEven = true;
-        spanEven = isEven ? `<div class="span_even_green"> Ч </div>` : `<div class="span_even_red"> НЧ </div>`
-    }
+    if (nowWeek == "Сб" || nowWeek == "Вс") isEven = isEven ? isEven = false : isEven = true;
+    spanEven = isEven ? `<div class="span_even_green"> Ч </div>` : `<div class="span_even_red"> НЧ </div>`
+
     let timetable = isEven ? json.timetable.even : json.timetable.uneven;
 
 
@@ -39,7 +37,7 @@ function createTable(json, isEven) {
             tr += `
                 <tr class="lession">
                     <td class="lessionName">${name}
-                        <br>
+                        ${number == "" ? "" : "<br>"}
                         <br>
                         <b class="lessionTeacher">${teacher}</b> 
                         <div class="lessionCode">${id}</div>
@@ -75,21 +73,37 @@ function createTable(json, isEven) {
 }
 
 function AddTable(json) {
-    let eval = EvalLocate(json);
-    let table = createTable(json, eval);
-    let mainTable = document.getElementsByClassName("main_table")[0];
+    let even = EvenDeterminant(json);
+    let table = CreateTable(json, even);
+    let mainTable = document.getElementsByClassName("table")[0];
     mainTable.innerHTML += table;
 
-    // Прокрутка
-    let week = getWeekDay();
-    if (week != "Сб" && week != "Вс") document.getElementsByClassName(week)[0].scrollIntoView();
+    ScrollToWeekElement();
+    EvenElementAdd(even);
+
+    // ТЕСТ
+    //TimeDetector();
 }
 
-function getWeekDay() {
-    var date = new Date();
-    let days = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+function ScrollToWeekElement() {
+    let week = getWeekDay();
+    document.getElementsByClassName(week)[0].scrollIntoView();
+}
 
-    return days[date.getDay()];
+function EvenElementAdd(isEven) {
+    if (isEven) {
+        document.getElementsByClassName("table")[0].innerHTML += `
+        <div class="is_even" style="    margin-right: -34px;color: lightgreen">
+            <div>Ч</div>
+        </div>
+        `
+    } else {
+        document.getElementsByClassName("table")[0].innerHTML += `
+        <div class="is_even" style="margin-right: -30px; color: tomato">
+            <div>НЧ</div>
+        </div>
+        `
+    }
 }
 
 function Start() {
@@ -111,17 +125,15 @@ function Start() {
     }
 }
 
-function GetData(code) {
+function GetData(key) {
     var xml = new XMLHttpRequest();
     xml.open("GET", "https://megum13.github.io/RSP/data.txt");
     xml.send();
 
     xml.onload = function() {
         try {
-            var text = BinaryToText(xml.response)
-            var json = Coder(text, code);
-            var jsonParse = JSON.parse(json);
-            AddTable(jsonParse);
+            let json = EncodeToJson(xml.response, key);
+            AddTable(json);
         } catch (e) {
             ErrorPro(e);
         }
@@ -133,7 +145,7 @@ function GetData(code) {
 
 function ErrorPro(e) {
     var error = document.getElementsByClassName("error")[0].children[0];
-    var mainTable = document.getElementsByClassName("main_table")[0];
+    var mainTable = document.getElementsByClassName("table")[0];
 
     error.style["display"] = "block"
     mainTable.style["display"] = "none"
@@ -141,14 +153,12 @@ function ErrorPro(e) {
     console.log(e);
 }
 
-
-
-function EvalLocate(json) {
+function EvenDeterminant(json) {
 
     let now = new Date();
     var day = now.getDate()
     var month = now.getMonth() + 1;
-    var isEval;
+    var isEven;
 
     for (var i = 0; i < json.week.length; i++) {
 
@@ -161,28 +171,21 @@ function EvalLocate(json) {
             endMonth = parseInt(end.split(".")[1]);
 
         if (startDay <= day && endDay >= day && startMonth <= month && endMonth >= month) {
-            isEval = json.week[i].isEven;
+            isEven = json.week[i].isEven;
             break;
         }
     }
 
-    if (isEval) {
-        document.body.innerHTML += `   
-        <div class="is_eval">
-        <div class="eval" style="margin-left: 8px; color: lightgreen">Ч</div>
-        </div>`
-    } else {
-        document.body.innerHTML += `   
-        <div class="is_eval">
-        <div class="" style="margin-left: 5px; color: tomato">НЧ</div>
-        </div>`
-    }
-    return isEval;
+    return isEven;
 }
 
 function TimeDetector() {
-
+    let tableArray = document.getElementsByTagName("table");
+    let tbody = tableArray[0];
     let date = new Date();
+
+    tbody.innerHTML += `<div class="time_detector"></div>`
+
     setInterval(function() {
 
         let hour = date.getHours();
@@ -193,4 +196,3 @@ function TimeDetector() {
 }
 
 Start();
-TimeDetector();
