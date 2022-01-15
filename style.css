@@ -4,7 +4,6 @@ body {
     font-style: normal;
     background-color: black;
     color: white;
-    max-width: 820px;
 }
 
 .error div {
@@ -16,6 +15,7 @@ body {
 
 .main_table {
     margin: auto 20px;
+    max-width: 820px;
 }
 
 .main_table table {
