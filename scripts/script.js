@@ -112,12 +112,11 @@ function Start() {
             .split('&')
             .reduce(function(res, a) {
                 var t = a.split('=');
-
                 res[decodeURIComponent(t[0])] = t.length == 1 ? null : decodeURIComponent(t[1]);
                 return res;
             }, {});
-        if (search.code != null)
-            GetData(search.code);
+        if (search.key != null)
+            GetData(search.key);
         else
             ErrorPro();
     } else {
