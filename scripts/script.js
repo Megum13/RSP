@@ -113,7 +113,7 @@ function Start() {
 
 function GetData(code) {
     var xml = new XMLHttpRequest();
-    xml.open("GET", "https://megum13.github.io/RSP/data.txt)
+    xml.open("GET", "https://megum13.github.io/RSP/data.txt");
     xml.send();
 
     xml.onload = function() {
