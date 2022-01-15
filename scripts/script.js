@@ -99,7 +99,7 @@ function EvenElementAdd(isEven) {
         `
     } else {
         document.getElementsByClassName("table")[0].innerHTML += `
-        <div class="is_even" style="color: tomato">
+        <div class="is_even" style="font-size:10px; margin-right: -24px; color: tomato">
             <div>НЧ</div>
         </div>
         `
