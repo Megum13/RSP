@@ -42,3 +42,37 @@ body {
 .lessionName {
     font-size: 15px;
 }
+
+.lessionTeacher {
+    border: 0;
+    float: left;
+}
+
+.lessionCode {
+    border: 0;
+    float: right;
+}
+
+.lessionNumber {
+    width: 29px;
+}
+
+.lessionNameH {
+    text-align: left;
+}
+
+.span_even_green {
+    border: 0;
+    background-color: lightgreen;
+    color: lightgreen;
+    height: 1px;
+    text-align: right;
+}
+
+.span_even_red {
+    border: 0;
+    background-color: tomato;
+    color: tomato;
+    height: 1px;
+    text-align: right;
+}

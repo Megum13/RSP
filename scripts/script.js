@@ -1,12 +1,31 @@
 function createTable(json, isEven) {
-    var timetable = isEven ? json.timetable.even : json.timetable.uneven;
-    var table = "";
-    var weeks = ["Пн", "Вт", "Ср", "Чт", "Пт", ]
-    var nowWeek = getWeekDay();
 
-    for (var i = 0; i < timetable.length; i++) {
 
-        var tr = "";
+    let table = "";
+    let spanEven = "";
+    let weeks = ["Пн", "Вт", "Ср", "Чт", "Пт", ]
+
+    let nowWeek = getWeekDay();
+    if (nowWeek == "Сб" || nowWeek == "Вс") {
+        isEven = isEven ? isEven = false : isEven = true;
+        spanEven = isEven ? `<div class="span_even_green"> Ч </div>` : `<div class="span_even_red"> НЧ </div>`
+    }
+    let timetable = isEven ? json.timetable.even : json.timetable.uneven;
+
+
+    table += `
+    <center class="Сб" style="${nowWeek == "Сб" ? "color: lightgreen" : ""}">Сб</center>
+    <br>
+    <center class="Вс" style="${nowWeek == "Вс" ? "color: lightgreen" : ""}">Вс</center>
+    <br>
+    
+    ${spanEven}
+    <br>
+    `
+
+    for (let i = 0; i < timetable.length; i++) {
+
+        let tr = "";
 
         for (var j = 0; j < timetable[i].length; j++) {
 
@@ -18,28 +37,35 @@ function createTable(json, isEven) {
                 number = json.lessions[n].number;
 
             tr += `
-                <tr name="${name}" id="${id}" teacher="${teacher}" number="${number}">
-                <td class="lessionName">${name}<br><br><b style="border:0; float: left">${teacher}</b> <div style="border:0; float: right">${id}</div></td>
-                <td width="29px">${number == "Nil" ? "" : number}</td>
+                <tr class="lession">
+                    <td class="lessionName">${name}
+                        <br>
+                        <br>
+                        <b class="lessionTeacher">${teacher}</b> 
+                        <div class="lessionCode">${id}</div>
+                    </td>
+                    <td class="lessionNumber">${number}</td>
                 </tr>
                 `;
 
         }
 
         table += ` 
-        <table cellpadding="5" cellspacing="0px">
-        <center class="${weeks[i]}" style="${nowWeek == weeks[i] ? "color: green" : ""}">${weeks[i]}</center>
-        <tr>
-        <th>
-            Предмет
-        </th>
-        <th>
-            Каб
-        </th>
-        </tr>
-        ${tr}
-        </table>
-        <br><br><br>
+        <table cellpadding="12" cellspacing="0px">
+            <center class="${weeks[i]}" style="${nowWeek == weeks[i] ? "color: lightgreen" : ""}">${weeks[i]}</center>
+            <tr>
+            <th class = "lessionNameH">
+                Предмет
+            </th>
+            <th class = "lessionCodeH">
+                Каб
+            </th>
+            </tr>
+            ${tr}
+            </table>
+        <br>
+        <br>
+        <br>
         `;
 
     }
@@ -49,12 +75,14 @@ function createTable(json, isEven) {
 }
 
 function AddTable(json) {
-    var eval = EvalLocate(json);
-    var table = createTable(json, eval);
-    var mainTable = document.getElementsByClassName("main_table")[0];
+    let eval = EvalLocate(json);
+    let table = createTable(json, eval);
+    let mainTable = document.getElementsByClassName("main_table")[0];
     mainTable.innerHTML += table;
 
-    document.getElementsByClassName(getWeekDay())[0].scrollIntoView(); // Прокрутка
+    // Прокрутка
+    let week = getWeekDay();
+    if (week != "Сб" && week != "Вс") document.getElementsByClassName(week)[0].scrollIntoView();
 }
 
 function getWeekDay() {
@@ -85,7 +113,7 @@ function Start() {
 
 function GetData(code) {
     var xml = new XMLHttpRequest();
-    xml.open("GET", "https://megum13.github.io/RSP/data.txt")
+    xml.open("GET", "/data.txt")
     xml.send();
 
     xml.onload = function() {
@@ -141,15 +169,28 @@ function EvalLocate(json) {
     if (isEval) {
         document.body.innerHTML += `   
         <div class="is_eval">
-        <div class="eval" style="margin-left: 8px; color: green">Ч</div>
+        <div class="eval" style="margin-left: 8px; color: lightgreen">Ч</div>
         </div>`
     } else {
         document.body.innerHTML += `   
         <div class="is_eval">
-        <div class="" style="margin-left: 5px; color: red">НЧ</div>
+        <div class="" style="margin-left: 5px; color: tomato">НЧ</div>
         </div>`
     }
     return isEval;
 }
 
+function TimeDetector() {
+
+    let date = new Date();
+    setInterval(function() {
+
+        let hour = date.getHours();
+        let second = date.getSeconds();
+
+    }, 1000 * 60);
+
+}
+
 Start();
+TimeDetector();
