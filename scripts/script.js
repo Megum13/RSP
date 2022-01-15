@@ -93,13 +93,13 @@ function ScrollToWeekElement() {
 function EvenElementAdd(isEven) {
     if (isEven) {
         document.getElementsByClassName("table")[0].innerHTML += `
-        <div class="is_even" style="    margin-right: -34px;color: lightgreen">
+        <div class="is_even" style="    margin-right: -14px;color: lightgreen">
             <div>Ч</div>
         </div>
         `
     } else {
         document.getElementsByClassName("table")[0].innerHTML += `
-        <div class="is_even" style="margin-right: -30px; color: tomato">
+        <div class="is_even" style="color: tomato">
             <div>НЧ</div>
         </div>
         `
