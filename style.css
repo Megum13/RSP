@@ -31,12 +31,8 @@ body {
     border-collapse: collapse;
 }
 
-.main_table tbody tr td {
-    border: 1px solid white;
-    word-wrap: break-word;
-}
-
-.main_table th {
+.main_table tbody tr td,
+th {
     border: 1px solid white;
     word-wrap: break-word;
 }
