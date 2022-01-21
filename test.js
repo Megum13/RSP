@@ -1,4 +1,4 @@
-fetch("http://dist.kait20.ru/lib/ajax/service.php?sesskey=WxXEjoG1wt&info=core_message_send_messages_to_conversation", {
+fetch("http://dist.kait20.ru/lib/ajax/service.php?sesskey=HzsJi4o7Yq&info=core_message_send_messages_to_conversation", {
     "credentials": "include",
     "headers": {
         "Content-Type": "application/json",
